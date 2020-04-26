@@ -3,13 +3,11 @@ import 'antd/dist/antd.css';
 import React from 'react';
 
 import Topbar from './components/Topbar'
+import Login from './components/Auth/Login'
 
+import { Layout } from 'antd';
 
-
-
-import { Layout, Menu} from 'antd';
-
-const { Header, Content, Footer } = Layout;
+const { Content, Footer } = Layout;
 
 function App() {
   return (
@@ -17,7 +15,7 @@ function App() {
       <Topbar/>
 
       <Content className="site-layout" style={{ padding: '0 50px', marginTop: 64 }}>
-      
+        <Login></Login>
       
       
       </Content>

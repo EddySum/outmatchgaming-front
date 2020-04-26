@@ -1,6 +1,7 @@
 import 'antd/dist/antd.css';
 import './Login.css';
 import React from 'react';
+import axios from 'axios';
 
 import { Form, Input, Button, Typography } from 'antd';
 import { Row } from 'antd';
@@ -9,8 +10,19 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 const { Text, Title } = Typography 
 
 function Login() {
-  const onFinish = ({username, password}: any) => {
-    console.log('Username received', username);
+  const onFinish = ({email, password}: any) => {
+
+    const body = {
+      fullEmail: email, 
+      password
+    }
+
+    axios.post(`http://localhost:5000/users/login`, body)
+      .then((res: any) => {
+        //const persons = res.data;
+        //this.setState({ persons });
+        console.log(res.data);
+      })
   };
 
   return (
@@ -23,10 +35,10 @@ function Login() {
           <Title level={3}>Sign In</Title>
         </Row>
         <Form.Item
-          name="username"
-          rules={[{ required: true, message: 'Please Enter Username!' }]}
+          name="email"
+          rules={[{ required: true, message: 'Please Enter Email!' }]}
         >
-          <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+          <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="email" />
         </Form.Item>
 
         <Form.Item

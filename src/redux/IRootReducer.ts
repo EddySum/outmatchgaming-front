@@ -1,5 +1,5 @@
 import { IUserState } from "./states/IUserState";
 
-interface IRootReducer {
+export interface IRootReducer {
   userReducer: IUserState
 }

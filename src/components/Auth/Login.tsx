@@ -3,15 +3,20 @@ import './Login.css';
 import React from 'react';
 import axios from 'axios';
 import { Link, useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { toggleAuth } from '../../redux/actions/userActions';
 
 import { Form, Input, Button, Typography } from 'antd';
 import { Row } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
+
 const { Text, Title } = Typography 
 
 function Login() {
   const history = useHistory();
+
+  const dispatch = useDispatch();
 
   const onFinish = ({email, password}: any) => {
 
@@ -23,6 +28,7 @@ function Login() {
     axios.post(`http://localhost:5000/users/login`, body)
       .then(res => {
         history.push("/home")
+        dispatch(toggleAuth());
       })
   };
 

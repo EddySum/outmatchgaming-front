@@ -2,6 +2,7 @@ import 'antd/dist/antd.css';
 import './Login.css';
 import React from 'react';
 import axios from 'axios';
+import { Link } from "react-router-dom";
 
 import { Form, Input, Button, Typography } from 'antd';
 import { Row } from 'antd';
@@ -20,8 +21,6 @@ function Login() {
     axios.post(`http://localhost:5000/users/login`, body)
       .then((res: any) => {
         //const persons = res.data;
-        //this.setState({ persons });
-        console.log(res.data);
       })
   };
 
@@ -59,7 +58,11 @@ function Login() {
         </Form.Item>
 
         <Row justify="center">
-          <Text>Not Signed up? <a href="">register now!</a></Text>
+          <Text>
+            Not Signed up? <Link to="/register">
+              register now!
+            </Link>
+          </Text>
         </Row>
       </Form>
   );

@@ -1,3 +1,4 @@
 export interface IUserState {
-  authenticated: boolean
+  authenticated: boolean,
+  username?: string
 }

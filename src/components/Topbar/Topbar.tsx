@@ -15,6 +15,9 @@ function Topbar() {
   const isAuthenticated: boolean = useSelector<IRootReducer, boolean>(
     state => state.userReducer.authenticated);
 
+  const username: string | undefined = useSelector<IRootReducer, string | undefined>(
+    state => state.userReducer.username);
+
   let userProfile;
 
   if (!isAuthenticated) {
@@ -26,9 +29,11 @@ function Topbar() {
       </Menu.Item>
     )
   } else {
+    
+
     userProfile = ( 
       <Menu.Item className="user-profile" key="4">
-        User Profile
+        {username}
       </Menu.Item>
     )
   }

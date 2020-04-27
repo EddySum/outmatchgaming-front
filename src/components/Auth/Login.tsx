@@ -2,7 +2,7 @@ import 'antd/dist/antd.css';
 import './Login.css';
 import React from 'react';
 import axios from 'axios';
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import { Form, Input, Button, Typography } from 'antd';
 import { Row } from 'antd';
@@ -11,6 +11,8 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 const { Text, Title } = Typography 
 
 function Login() {
+  const history = useHistory();
+
   const onFinish = ({email, password}: any) => {
 
     const body = {
@@ -19,8 +21,8 @@ function Login() {
     }
 
     axios.post(`http://localhost:5000/users/login`, body)
-      .then((res: any) => {
-        //const persons = res.data;
+      .then(res => {
+        history.push("/home")
       })
   };
 

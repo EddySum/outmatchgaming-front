@@ -30,6 +30,10 @@ function App() {
             <Route path="/register">
               <p>Register</p>
             </Route>
+
+            <Route path="/home">
+              <p>Home</p>
+            </Route>
             <Route path="/games">
               <p>Games Page</p>
             </Route>

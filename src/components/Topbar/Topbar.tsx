@@ -2,13 +2,37 @@ import 'antd/dist/antd.css';
 import './Topbar.css';
 import React from 'react';
 
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
+
+import { IRootReducer } from "../../redux/IRootReducer";
+import { useSelector } from "react-redux";
 
 import { Layout, Menu } from 'antd';
 
-const {Header} = Layout;
+const { Header } = Layout;
 
 function Topbar() {
+  const isAuthenticated: boolean = useSelector<IRootReducer, boolean>(
+    state => state.userReducer.authenticated);
+
+  let userProfile;
+
+  if (!isAuthenticated) {
+    userProfile = (
+      <Menu.Item className="user-profile" key="4">
+        <Link to="/login">
+          Login / Sign Up
+        </Link>
+      </Menu.Item>
+    )
+  } else {
+    userProfile = ( 
+      <Menu.Item className="user-profile" key="4">
+        User Profile
+      </Menu.Item>
+    )
+  }
+
   return (
     <Header className="header">
       <div className="logo" />
@@ -30,11 +54,8 @@ function Topbar() {
           </Link>
         </Menu.Item>
 
-        <Menu.Item className="login" key="4">
-          <Link to="/login">
-            Login / Sign Up
-          </Link>
-        </Menu.Item>
+        {userProfile}
+
       </Menu>
     </Header>
   );

@@ -31,7 +31,7 @@ function App() {
               <p>Register</p>
             </Route>
 
-            <Route path="/home">
+            <Route exact path="/">
               <p>Home</p>
             </Route>
             <Route path="/games">

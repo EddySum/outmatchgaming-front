@@ -1,21 +1,31 @@
 import './App.css';
 import 'antd/dist/antd.css';
 import React from 'react';
+import axios from 'axios';
 
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import { setUsername, toggleAuth } from './redux/actions/userActions';
 
 import Topbar from './components/Topbar/Topbar'
-import Login from './components/Auth/Login'
+import Login from './components/Login/Login'
 
 import { Layout } from 'antd';
 
 const { Content, Footer } = Layout;
 
 function App() {
+  const dispatch = useDispatch();
+
+  const isAuth = async () => {
+    const { data: userInfo } = await axios.get(`http://localhost:5000/users/info`, { withCredentials: true })
+
+    dispatch(toggleAuth())
+    dispatch(setUsername(userInfo.username));
+  }
+
+  isAuth();
+
   return (
     <Router>
       <Layout>

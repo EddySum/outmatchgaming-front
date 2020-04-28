@@ -29,8 +29,6 @@ function Topbar() {
       </Menu.Item>
     )
   } else {
-    
-
     userProfile = ( 
       <Menu.Item className="user-profile" key="4">
         {username}

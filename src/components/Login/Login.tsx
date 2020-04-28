@@ -3,8 +3,8 @@ import './Login.css';
 import React from 'react';
 import axios from 'axios';
 import { Link, useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { toggleAuth, setUsername } from '../../redux/actions/userActions';
+import { useDispatch } from 'react-redux';
+import { setUsername, toggleAuth } from '../../redux/actions/userActions';
 
 import { Form, Input, Button, Typography } from 'antd';
 import { Row } from 'antd';
@@ -15,22 +15,21 @@ const { Text, Title } = Typography
 
 function Login() {
   const history = useHistory();
-
   const dispatch = useDispatch();
 
-  const onFinish = ({email, password}: any) => {
-
+  const onFinish = async ({email, password}: any) => {
     const body = {
       fullEmail: email, 
       password
     }
 
-    axios.post(`http://localhost:5000/users/login`, body)
-      .then((res: any) => {
-        history.push("/home")
-        dispatch(toggleAuth());
-        dispatch(setUsername(res.data.username));
-      })
+    await axios.post(`http://localhost:5000/users/login`, body, { withCredentials: true });
+
+    const { data: userInfo } = await axios.get(`http://localhost:5000/users/info`, { withCredentials: true })
+
+    dispatch(toggleAuth())
+    dispatch(setUsername(userInfo.username));
+    history.push("/");
   };
 
   return (

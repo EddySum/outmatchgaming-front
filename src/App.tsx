@@ -9,6 +9,7 @@ import { setUsername, toggleAuth } from './redux/actions/userActions';
 
 import Topbar from './components/Topbar/Topbar'
 import Login from './components/Login/Login'
+import Home from './components/Home/Home'
 
 import { Layout } from 'antd';
 
@@ -42,7 +43,7 @@ function App() {
             </Route>
 
             <Route exact path="/">
-              <p>Home</p>
+              <Home/>
             </Route>
             <Route path="/games">
               <p>Games Page</p>

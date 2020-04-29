@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import { Layout, Menu } from 'antd';
 
 const { Header } = Layout;
+const { SubMenu } = Menu;
 
 function Topbar() {
   const isAuthenticated: boolean = useSelector<IRootReducer, boolean>(
@@ -30,15 +31,18 @@ function Topbar() {
     )
   } else {
     userProfile = ( 
-      <Menu.Item className="user-profile" key="4">
-        {username}
-      </Menu.Item>
+      <SubMenu className="user-profile" title={username}>
+          <Menu.Item key="option:1">Logout</Menu.Item>
+        </SubMenu>
     )
   }
 
   return (
     <Header className="header">
-      <div className="logo" />
+      <Link to="/">
+        <div className="logo" />
+      </Link>
+
       <Menu className="menu" theme="dark" mode="horizontal">
       
         <Menu.Item key="1">

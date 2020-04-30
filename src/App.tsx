@@ -59,7 +59,7 @@ function App() {
         
         </Content>
 
-        <Footer style={{ textAlign: 'center' }}>Out Match Gaming ©2018 Created by Eddy Productions</Footer>
+        <Footer style={{ textAlign: 'center' }}>Out Match Gaming ©2020 Created by Eddy Productions</Footer>
       </Layout>
     </Router>
   );

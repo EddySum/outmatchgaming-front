@@ -1,3 +1,5 @@
 .site-layout {
-  min-height: calc(100vh - 200px) !important;
+  min-height: calc(100vh - 150px) !important;
+  padding: 0px 50px;
+  margin: 16px 0px;
 }

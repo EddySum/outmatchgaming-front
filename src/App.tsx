@@ -34,7 +34,7 @@ function App() {
       <Layout>
         <Topbar/>
 
-        <Content className="site-layout" style={{ padding: '0 50px', marginTop: 64 }}>
+        <Content className="site-layout">
           
           <Switch>
             <Route path="/login">

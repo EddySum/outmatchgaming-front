@@ -2,7 +2,8 @@ import 'antd/dist/antd.css';
 import './Topbar.css';
 import React from 'react';
 
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import axios from 'axios';
 
 import { IRootReducer } from "../../redux/IRootReducer";
 import { useSelector } from "react-redux";
@@ -13,6 +14,15 @@ const { Header } = Layout;
 const { SubMenu } = Menu;
 
 function Topbar() {
+  const history = useHistory();
+  const logout = async () => {
+  
+    const x = await axios.post(`http://localhost:5000/users/logout`, { credentials: 'same-origin' });
+    console.log(x);
+
+    history.push("/");
+  }
+
   const isAuthenticated: boolean = useSelector<IRootReducer, boolean>(
     state => state.userReducer.authenticated);
 
@@ -32,8 +42,11 @@ function Topbar() {
   } else {
     userProfile = ( 
       <SubMenu className="user-profile" title={username}>
-          <Menu.Item key="option:1">Logout</Menu.Item>
-        </SubMenu>
+        <Menu.ItemGroup title="Teams">
+          <Menu.Item key="team:1">Static Team</Menu.Item>
+        </Menu.ItemGroup>
+          <Menu.Item key="option:1" onClick={logout}>Logout</Menu.Item>
+      </SubMenu>
     )
   }
 
@@ -44,7 +57,6 @@ function Topbar() {
       </Link>
 
       <Menu className="menu" theme="dark" mode="horizontal">
-      
         <Menu.Item key="1">
           <Link to="/games">
             Games

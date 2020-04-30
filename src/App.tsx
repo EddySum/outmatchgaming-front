@@ -7,6 +7,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import { setUsername, toggleAuth } from './redux/actions/userActions';
 
+import GameDetail from './components/GameDetail/GameDetail';
+
 import Topbar from './components/Topbar/Topbar'
 import Login from './components/Login/Login'
 import Home from './components/Home/Home'
@@ -45,14 +47,17 @@ function App() {
             <Route exact path="/">
               <Home/>
             </Route>
-            <Route path="/games">
+            <Route exact path="/games">
               <p>Games Page</p>
             </Route>
-            <Route path="/tournaments">
+            <Route exact path="/tournaments">
               <p>Tournaments</p>
             </Route>
-            <Route path="/leaderboards">
+            <Route exact path="/leaderboards">
               <p>Leaderboards</p>
+            </Route>
+            <Route path={`/games/:gameId`}>
+              <GameDetail />
             </Route>
           </Switch>
         

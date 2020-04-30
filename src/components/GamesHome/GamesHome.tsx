@@ -14,22 +14,11 @@ const GET_GAMES = gql`
     getGames {
       _id
       name
-      platform
+      platform,
+      imageLink
     }
   }
 `;
-
-const getGameImage = (gameName: string) => {
-  if (gameName === 'Modern Warfare 2019') {
-    return require('../../assets/modern_warfare.png')
-  } else if (gameName === 'Black Ops 2') {
-    return require('../../assets/black_ops_2.png')
-  } else if (gameName === 'Valorant') {
-    return require('../../assets/valorant.png')
-  } else {
-    return require('../../assets/image_not_found.jpg')
-  }
-}
 
 function GamesHome() {
   const { loading, error, data } = useQuery(GET_GAMES);
@@ -37,20 +26,22 @@ function GamesHome() {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>404 Not Found</p>;
 
-    return <div className="game-cards-wrapper">
-      <Row>
-        {data.getGames.map(({name, platform}: any) => (
-          <Col span={5}>
+  return (
+    <div className="game-cards-wrapper">
+      <Row gutter={[32, 32]}>
+        {data.getGames.map(({name, platform, imageLink}: any) => (
+          <Col>
             <Card
               hoverable
               className="game-card"
-              cover={<img alt="Not Found" src={getGameImage(name)} />}
+              cover={<img alt="Not Found" src={imageLink} />}
             >
               <Meta title={name} description={platform} />
             </Card>
           </Col>))}
       </Row>
     </div>
+  )
 }
 
 export default GamesHome;

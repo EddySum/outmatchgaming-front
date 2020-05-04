@@ -1,3 +1,7 @@
+.game-cards-wrapper {
+  margin-top: 32px;
+}
+
 .game-card {
-  width: 220px
+  width: 220px;
 }

@@ -2,7 +2,7 @@ import 'antd/dist/antd.css';
 import './Topbar.css';
 import React from 'react';
 
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 import { IRootReducer } from "../../redux/IRootReducer";
@@ -14,13 +14,12 @@ const { Header } = Layout;
 const { SubMenu } = Menu;
 
 function Topbar() {
-  const history = useHistory();
   const logout = async () => {
   
-    const x = await axios.post(`http://localhost:5000/users/logout`, { credentials: 'same-origin' });
-    console.log(x);
+    await axios.post(`http://localhost:5000/users/logout`, {}, { withCredentials: true });
 
-    history.push("/");
+    // hard reload to ensure react state data is reset on logout
+    window.location.reload(false);
   }
 
   const isAuthenticated: boolean = useSelector<IRootReducer, boolean>(

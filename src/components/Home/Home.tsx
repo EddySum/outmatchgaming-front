@@ -4,7 +4,7 @@ import React from 'react';
 
 import { Carousel } from 'antd';
 
-import GamesHome from '../GamesHome/GamesHome';
+import GamesList from '../GamesList/GamesList';
 
 function Home() {
   return (
@@ -13,7 +13,7 @@ function Home() {
         <div className="splash" style={{ backgroundImage: `url("https://i.ibb.co/7Gb5k7G/splash1.jpg")` }}/>
         <div className="splash" style={{ backgroundImage: `url("https://i.ibb.co/7Gb5k7G/splash1.jpg")` }}/>
       </Carousel>
-      <GamesHome/>
+      <GamesList/>
     </div>
   );
 }

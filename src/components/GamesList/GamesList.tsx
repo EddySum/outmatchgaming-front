@@ -1,5 +1,5 @@
 import 'antd/dist/antd.css';
-import './GamesHome.css';
+import './GamesList.css';
 import React from 'react';
 
 import { useQuery } from '@apollo/react-hooks';
@@ -21,7 +21,7 @@ const GET_GAMES = gql`
   }
 `;
 
-function GamesHome() {
+function GamesList() {
   const { loading, error, data } = useQuery(GET_GAMES);
 
   if (loading) return <p>Loading...</p>;
@@ -48,4 +48,4 @@ function GamesHome() {
   )
 }
 
-export default GamesHome;
+export default GamesList;

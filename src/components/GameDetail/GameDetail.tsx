@@ -3,7 +3,6 @@ import './GameDetail.css';
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
-
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 
@@ -45,12 +44,12 @@ function GameDetail() {
         subTitle="Ladders / Tournaments"
       />
       <Row gutter={[32, 32]}>
-        {data.getGame.ladders?.map(({ name, maxPlayers }: any) => (
+        {data.getGame.ladders?.map(({ name, maxPlayers, _id }: any) => (
           <Col>
             <Card 
               className="ladder-card" 
               title={name} 
-              extra={<Link to="/">Create Team</Link>}
+              extra={<Link to={`/ladders/${_id}/create`}>Create Team</Link>}
             >
               <p>Type: Ladder</p>
               <p>Max Players: {maxPlayers}</p>

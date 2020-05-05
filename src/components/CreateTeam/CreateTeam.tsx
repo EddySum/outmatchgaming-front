@@ -1,7 +1,7 @@
 import 'antd/dist/antd.css';
 import './CreateTeam.css';
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 import { Form, Input, Button, Typography } from 'antd';
@@ -10,6 +10,9 @@ import { TeamOutlined } from '@ant-design/icons';
 import { useMutation } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 import { Store } from 'antd/lib/form/interface';
+import { IRootReducer } from "../../redux/IRootReducer";
+import { useSelector } from "react-redux";
+import Text from 'antd/lib/typography/Text';
 
 export const CREATE_TEAM = gql`
   mutation CreateTeam($ladderId: ID!, $teamName: String!) {
@@ -23,12 +26,27 @@ export const CREATE_TEAM = gql`
 `;
 
 function CreateTeam() {
+  const [createTeam, { data }] = useMutation(CREATE_TEAM);
+
+  const isAuthenticated: boolean = useSelector<IRootReducer, boolean>(
+    state => state.userReducer.authenticated);
+
+    if (!isAuthenticated) {
+      return (
+        <Text>
+          Uh oh. Creating a team requires an account. Would you like to 
+          <Link to="/login"> login </Link> 
+          or signup? 
+        </Text>
+      )
+    }
+
   const url = window.location.href;
   const beginIdx = url.indexOf('ladders/')+8;
   const endIdx = url.indexOf('/', beginIdx);
   const ladderId = url.substring(beginIdx, endIdx);
 
-  const [createTeam, { data }] = useMutation(CREATE_TEAM);
+  
 
   const onSubmit = ({ teamName }: Store) => {
     createTeam({ variables: { ladderId, teamName } });

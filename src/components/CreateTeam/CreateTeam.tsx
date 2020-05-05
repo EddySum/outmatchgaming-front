@@ -4,7 +4,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 
-import { Form, Input, Button, Typography } from 'antd';
+import { Form, Input } from 'antd';
 import { TeamOutlined } from '@ant-design/icons';
 
 import { useMutation } from '@apollo/react-hooks';
@@ -26,7 +26,7 @@ export const CREATE_TEAM = gql`
 `;
 
 function CreateTeam() {
-  const [createTeam, { data }] = useMutation(CREATE_TEAM);
+  const [createTeam] = useMutation(CREATE_TEAM);
 
   const isAuthenticated: boolean = useSelector<IRootReducer, boolean>(
     state => state.userReducer.authenticated);

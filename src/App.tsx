@@ -3,7 +3,7 @@ import 'antd/dist/antd.css';
 import React from 'react';
 import axios from 'axios';
 
-import { BrowserRouter as Router, Switch, Route, RouteComponentProps } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import { setUsername, toggleAuth } from './redux/actions/userActions';
 

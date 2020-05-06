@@ -5,6 +5,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
+import { useQuery } from '@apollo/react-hooks';
+import { gql } from 'apollo-boost';
+
 import { IRootReducer } from "../../redux/IRootReducer";
 import { useSelector } from "react-redux";
 
@@ -12,6 +15,15 @@ import { Layout, Menu } from 'antd';
 
 const { Header } = Layout;
 const { SubMenu } = Menu;
+
+const GET_TEAMS_BY_PLAYER = gql`
+  query {
+    getTeamsByPlayer(playerId: "5e69d726c8a6a1210dcd0222") {
+      _id
+      name
+  }
+}
+`;
 
 function Topbar() {
   const logout = async () => {
@@ -28,8 +40,20 @@ function Topbar() {
   const username: string | undefined = useSelector<IRootReducer, string | undefined>(
     state => state.userReducer.username);
 
-  let userProfile;
+  const { loading, error, data } = useQuery(GET_TEAMS_BY_PLAYER);
 
+  let teamsElem;
+  if (data) {
+    teamsElem = (
+    <Menu.ItemGroup title="Teams">
+        {data.getTeamsByPlayer.map(({ name, _id }: any) => (
+          <Menu.Item key={`team:${_id}`}>{name}</Menu.Item>
+        ))}
+      </Menu.ItemGroup>
+    )
+  }
+
+  let userProfile;
   if (!isAuthenticated) {
     userProfile = (
       <Menu.Item className="user-profile" key="4">
@@ -41,14 +65,12 @@ function Topbar() {
   } else {
     userProfile = ( 
       <SubMenu className="user-profile" title={username}>
-        <Menu.ItemGroup title="Teams">
-          <Menu.Item key="team:1">Static Team</Menu.Item>
-        </Menu.ItemGroup>
-          <Menu.Item key="option:1" onClick={logout}>Logout</Menu.Item>
+        {teamsElem}
+        <Menu.Item key="option:1" onClick={logout}>Logout</Menu.Item>
       </SubMenu>
-    )
+    ) 
   }
-
+  
   return (
     <Header className="header">
       <Link to="/">

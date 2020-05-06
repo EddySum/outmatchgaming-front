@@ -4,7 +4,7 @@ import React from 'react';
 import axios from 'axios';
 import { Link, useHistory } from "react-router-dom";
 import { useDispatch } from 'react-redux';
-import { setUsername, toggleAuth } from '../../redux/actions/userActions';
+import { setUserInfo, toggleAuth } from '../../redux/actions/userActions';
 
 import { Form, Input, Button, Typography } from 'antd';
 import { Row } from 'antd';
@@ -28,7 +28,7 @@ function Login() {
     const { data: userInfo } = await axios.get(`http://localhost:5000/users/info`, { withCredentials: true })
 
     dispatch(toggleAuth())
-    dispatch(setUsername(userInfo.username));
+    dispatch(setUserInfo(userInfo.username, userInfo.id));
     history.push("/");
   };
 

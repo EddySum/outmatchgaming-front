@@ -1,6 +1,6 @@
 export enum EUserActions {
   TOGGLE_AUTH = 'TOGGLE_AUTH',
-  SET_USERNAME = 'SET_USERNAME'
+  SET_USER_INFO = 'SET_USER_INFO'
 }
 
 export function toggleAuth() {
@@ -9,9 +9,10 @@ export function toggleAuth() {
   }
 }
 
-export function setUsername(username: string) {
+export function setUserInfo(username: string, id: string) {
   return {
-      type: EUserActions.SET_USERNAME,
-      username
+      type: EUserActions.SET_USER_INFO,
+      username,
+      id
   }
 }

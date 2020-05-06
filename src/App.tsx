@@ -5,7 +5,7 @@ import axios from 'axios';
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { useDispatch } from 'react-redux';
-import { setUsername, toggleAuth } from './redux/actions/userActions';
+import { setUserInfo, toggleAuth } from './redux/actions/userActions';
 
 import GameDetail from './components/GameDetail/GameDetail';
 import CreateTeam from './components/CreateTeam/CreateTeam'
@@ -24,7 +24,7 @@ function App() {
     const { data: userInfo } = await axios.get(`http://localhost:5000/users/info`, { withCredentials: true })
 
     dispatch(toggleAuth())
-    dispatch(setUsername(userInfo.username));
+    dispatch(setUserInfo(userInfo.username, userInfo.id));
   }
 
   isAuth();

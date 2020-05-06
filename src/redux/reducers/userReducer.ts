@@ -10,8 +10,8 @@ export function userReducer(state = DEFAULT_STATE, action: AnyAction): IUserStat
   switch (action.type) {
     case EUserActions.TOGGLE_AUTH:
         return { ...state, authenticated: !state.authenticated };
-    case EUserActions.SET_USERNAME:
-      return { ...state, username: action.username };
+    case EUserActions.SET_USER_INFO:
+      return { ...state, username: action.username, id: action.id };
     default:
         return state;
   }

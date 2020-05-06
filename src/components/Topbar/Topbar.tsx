@@ -17,8 +17,8 @@ const { Header } = Layout;
 const { SubMenu } = Menu;
 
 const GET_TEAMS_BY_PLAYER = gql`
-  query {
-    getTeamsByPlayer(playerId: "5e69d726c8a6a1210dcd0222") {
+  query GetTeamsByPlayer($playerId: ID!){
+    getTeamsByPlayer(playerId: $playerId) {
       _id
       name
   }
@@ -40,7 +40,10 @@ function Topbar() {
   const username: string | undefined = useSelector<IRootReducer, string | undefined>(
     state => state.userReducer.username);
 
-  const { loading, error, data } = useQuery(GET_TEAMS_BY_PLAYER);
+  const userId: string | undefined = useSelector<IRootReducer, string | undefined>(
+    state => state.userReducer.id);  
+
+  const { data } = useQuery(GET_TEAMS_BY_PLAYER, { variables: { playerId: userId } });
 
   let teamsElem;
   if (data) {
@@ -49,7 +52,7 @@ function Topbar() {
         {data.getTeamsByPlayer.map(({ name, _id }: any) => (
           <Menu.Item key={`team:${_id}`}>{name}</Menu.Item>
         ))}
-      </Menu.ItemGroup>
+    </Menu.ItemGroup>
     )
   }
 

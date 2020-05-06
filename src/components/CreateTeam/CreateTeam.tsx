@@ -1,10 +1,10 @@
 import 'antd/dist/antd.css';
 import './CreateTeam.css';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 
-import { Form, Input } from 'antd';
+import { Form, Input, PageHeader, Button } from 'antd';
 import { TeamOutlined } from '@ant-design/icons';
 
 import { useMutation } from '@apollo/react-hooks';
@@ -26,6 +26,7 @@ export const CREATE_TEAM = gql`
 `;
 
 function CreateTeam() {
+  const history = useHistory();
   const [createTeam] = useMutation(CREATE_TEAM);
 
   const isAuthenticated: boolean = useSelector<IRootReducer, boolean>(
@@ -53,17 +54,27 @@ function CreateTeam() {
   }
 
   return (
-    <Form
-      onFinish={onSubmit}
-    >
-      <Form.Item
-        name="teamName"
-        rules={[{ required: true, message: 'Team Name' }]}
+    <div className="wrapper">
+      <PageHeader
+          onBack={() => history.goBack()}
+          title="Create Team"
+        />
+      <Form
+        onFinish={onSubmit}
       >
-        <Input prefix={<TeamOutlined className="site-form-item-icon" />} placeholder="Enter Team Name" />
-      </Form.Item>
-      <button type="submit">Add Todo</button>
-    </Form>
+        <Form.Item
+          name="teamName"
+          rules={[{ required: true, message: 'Team Name' }]}
+        >
+          <Input prefix={<TeamOutlined className="site-form-item-icon" />} placeholder="Enter Team Name" />
+        </Form.Item>
+        <Form.Item>
+          <Button type="primary" htmlType="submit">
+            Create Team
+          </Button>
+        </Form.Item>
+      </Form>
+    </div>
   )
 }
 

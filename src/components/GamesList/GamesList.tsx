@@ -29,7 +29,7 @@ function GamesList() {
    
   return (
     <div className="game-cards-wrapper">
-      <Row gutter={[32, 32]}>
+      <Row justify="center" gutter={[32, 32]}>
         {data.getGames.map(({name, platform, imageLink, _id}: any) => (
           <Link to={`/games/${_id}`}>
             <Col>

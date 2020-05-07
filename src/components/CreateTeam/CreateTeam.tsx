@@ -4,7 +4,7 @@ import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
 
-import { Form, Input, PageHeader, Button } from 'antd';
+import { Form, Input, PageHeader, Button, Spin } from 'antd';
 import { TeamOutlined } from '@ant-design/icons';
 
 import { useMutation } from '@apollo/react-hooks';
@@ -27,7 +27,7 @@ export const CREATE_TEAM = gql`
 
 function CreateTeam() {
   const history = useHistory();
-  const [createTeam] = useMutation(CREATE_TEAM);
+  const [createTeam, { error, called, data }] = useMutation(CREATE_TEAM)
 
   const isAuthenticated: boolean = useSelector<IRootReducer, boolean>(
     state => state.userReducer.authenticated);
@@ -47,10 +47,16 @@ function CreateTeam() {
   const endIdx = url.indexOf('/', beginIdx);
   const ladderId = url.substring(beginIdx, endIdx);
 
-  
-
   const onSubmit = ({ teamName }: Store) => {
     createTeam({ variables: { ladderId, teamName } });
+  }
+
+  if (data) {
+    history.push(`/teams/${data.createTeam._id}`)
+  } else if (called) {
+    return (
+      <Spin />
+    )
   }
 
   return (

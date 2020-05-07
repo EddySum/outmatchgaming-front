@@ -49,7 +49,7 @@ function GameDetail() {
             <Card 
               className="ladder-card" 
               title={name} 
-              extra={<Link to={`/ladders/${_id}/create`}>Create Team</Link>}
+              extra={<Link to={`/ladders/${_id}/teams/create`}>Create Team</Link>}
             >
               <p>Type: Ladder</p>
               <p>Max Players: {maxPlayers}</p>

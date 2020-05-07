@@ -2,7 +2,7 @@ import 'antd/dist/antd.css';
 import './Topbar.css';
 import React from 'react';
 
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 
 import { useQuery } from '@apollo/react-hooks';
@@ -26,6 +26,7 @@ const GET_TEAMS_BY_PLAYER = gql`
 `;
 
 function Topbar() {
+  const history = useHistory();
   const logout = async () => {
   
     await axios.post(`http://localhost:5000/users/logout`, {}, { withCredentials: true });
@@ -50,7 +51,7 @@ function Topbar() {
     teamsElem = (
     <Menu.ItemGroup title="Teams">
         {data.getTeamsByPlayer.map(({ name, _id }: any) => (
-          <Menu.Item key={`team:${_id}`}>{name}</Menu.Item>
+          <Menu.Item onClick={() => {history.push(`/teams/${_id}`)}} key={`team:${_id}`}>{name}</Menu.Item>
         ))}
     </Menu.ItemGroup>
     )

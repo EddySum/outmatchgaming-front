@@ -63,7 +63,7 @@ function App() {
             <Route exact path="/ladders/:ladderId/teams/create">
               <CreateTeam />  
             </Route>
-            <Route exact path="/ladders/:ladderId/teams/:teamId">
+            <Route exact path="/teams/:teamId">
               <TeamDetail />  
             </Route>
           </Switch>

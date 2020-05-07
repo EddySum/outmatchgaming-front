@@ -52,7 +52,7 @@ function CreateTeam() {
   }
 
   if (data) {
-    history.push(`/ladders/${data.ladderId}/teams/${data.createTeam._id}`)
+    history.push(`/teams/${data.createTeam._id}`)
   } else if (called) {
     return (
       <Spin />

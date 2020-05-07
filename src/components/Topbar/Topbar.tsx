@@ -87,11 +87,6 @@ function Topbar() {
             Games
           </Link>
         </Menu.Item>
-        <Menu.Item key="2">
-          <Link to="/tournaments">
-            Tournaments
-          </Link>
-        </Menu.Item>
         <Menu.Item key="3">
           <Link to="/leaderboards">
             Leaderboards

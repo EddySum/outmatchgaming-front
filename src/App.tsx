@@ -15,6 +15,7 @@ import Home from './components/Home/Home'
 
 import { Layout } from 'antd';
 import TeamDetail from './components/TeamDetail/TeamDetail';
+import GamesList from './components/GamesList/GamesList';
 
 const { Content, Footer } = Layout;
 
@@ -49,13 +50,10 @@ function App() {
               <Home/>
             </Route>
             <Route exact path="/games">
-              <p>Games Page</p>
-            </Route>
-            <Route exact path="/tournaments">
-              <p>Tournaments</p>
+              <GamesList />
             </Route>
             <Route exact path="/leaderboards">
-              <p>Leaderboards</p>
+              <p>Leaderboards are Under Construction. Sorry :(</p>
             </Route>
             <Route exact path="/games/:gameId">
               <GameDetail />

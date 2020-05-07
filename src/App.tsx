@@ -14,6 +14,7 @@ import Login from './components/Login/Login'
 import Home from './components/Home/Home'
 
 import { Layout } from 'antd';
+import TeamDetail from './components/TeamDetail/TeamDetail';
 
 const { Content, Footer } = Layout;
 
@@ -61,6 +62,9 @@ function App() {
             </Route>
             <Route exact path="/ladders/:ladderId/teams/create">
               <CreateTeam />  
+            </Route>
+            <Route exact path="/ladders/:ladderId/teams/:teamId">
+              <TeamDetail />  
             </Route>
           </Switch>
         

@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 
-import { PageHeader} from 'antd';
+import { PageHeader, Spin, Table } from 'antd';
 
 export const GET_TEAM_DETAILS = gql`
   query TeamDetails($teamId: ID!) {
@@ -15,6 +15,11 @@ export const GET_TEAM_DETAILS = gql`
       ladderId
       playersId
       points
+      players {
+        _id
+        username
+        points
+      }
     }
   }
 `;
@@ -27,16 +32,49 @@ function TeamDetail() {
   
   const { data, loading, error } = useQuery(GET_TEAM_DETAILS, { variables: { teamId } } );
 
-  if (loading) return <p>Loading...</p>;
+  
+  if (loading) return <Spin />;
   if (error) return <p>ERROR: {error.message}</p>;
   if (!data) return <p>Not found</p>;
+
+  const columns = [
+    {
+      title: 'Username',
+      dataIndex: 'username',
+      key: 'username',
+    },
+    {
+      title: 'Gamertag',
+      dataIndex: 'gamertag',
+      key: 'gamertag',
+    },
+    {
+      title: 'Points',
+      dataIndex: 'points',
+      key: 'points',
+    }
+  ];
+
+  let tableData;
+  if (data) {
+    // transform player objects to player data
+    tableData = data.getTeam.players.map((player: any) => {
+      return {
+        username: player.username,
+        key: player._id,
+        points: player.points,
+        gamertag: 'Static Gamertag'
+      }
+    });
+  } 
 
   return (
     <div className="wrapper">
       <PageHeader
         onBack={() => history.goBack()}
-        title={'Dream Team'}
+        title={data.getTeam.name}
       />
+      <Table columns={columns} dataSource={tableData} />
     </div>
   )
 }
